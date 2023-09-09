@@ -3,11 +3,15 @@ import AdjustIcon from "@mui/icons-material/Adjust";
 import CartButton from "./CartButton";
 
 interface CategoryDishesProps {
+  category: string;
   dishes?: any[]; 
   setCart?: (cart: any) => void; 
+  setActiveTab?: any;
+  cart?: any;
 }
 
 const CategoryDishes: React.FC<CategoryDishesProps> = (props) => {
+console.log(props.category, "categorycheck")
   return (
     <div className="w-full">
       {props.dishes === undefined
@@ -37,7 +41,7 @@ const CategoryDishes: React.FC<CategoryDishesProps> = (props) => {
                   </h4>
                   <div className="ml-8">
                     {item.dish_Availability ? (
-                      <CartButton item={item} cartCount={props?.setCart} />
+                      <CartButton item={item} cartCount={props?.setCart} category={props.category} key={index} setActiveTab={props?.setActiveTab}/>
                     ) : (
                       <h4 className="text-red-600 mt-3 font-serif my-3">
                         Not Available

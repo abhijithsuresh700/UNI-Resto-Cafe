@@ -1,35 +1,62 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+"use client"
+import React, { useState, useEffect } from "react";
 import { incrementCart, decrementCart } from "../redux/cartSlice";
-import { RootState } from "../redux/store";
+import { useAppDispatch,useAppSelector } from "@/redux/hooks";
+
 
 interface CartButtonProps {
   item: {
     id: number;
     dish_Availability: boolean; 
+    dish_id: number;
   };
   cartCount?: (cart: any) => void;
+  category: string;
+  setActiveTab: any;
 }
 
+
 const CartButton: React.FC<CartButtonProps> = (props) => {
+  const dispatch = useAppDispatch();
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
-  const cartCount = useSelector((state: RootState) => state.cart.cartCount); // Use RootState
-  const dispatch = useDispatch();
 
+  const countt = useAppSelector((state) => state.cart.items)
+
+  const currentDishId = props.item.dish_id;
+
+  const currentDishCount = countt.find(item => item.dishId    === currentDishId)?.count || 0;
+
+
+  console.log(countt,"count check at cartbutton");
+  console.log(currentDishId,"currentDishId count check at cartbutton");
+  console.log(currentDishCount,"currentDishCount count check at cartbutton");
+  
   const handleAddToCart = (incrementValue: number) => {
     if (count === 0 && incrementValue === -1) {
       setText("");
     } else {
       if (incrementValue === 1) {
-        dispatch(incrementCart(props.item.id));
+        dispatch(incrementCart(props?.item?.dish_id));
+        console.log(props,"id check at cart")
       } else {
-        dispatch(decrementCart(props.item.id));
+        dispatch(decrementCart(props?.item?.dish_id));
       }
-      setCount(count + incrementValue);
-      setText("Customization available");
+       setCount(count + incrementValue);
+       setText("Customization available");
     }
   };
+
+  useEffect(() => {
+
+    setCount(currentDishCount);
+    if(currentDishCount >= 1) {
+       setText("Customization available");    
+    }else{
+       setText("");
+    }
+  }, [props.category,count]);
+
 
   return (
     <>
@@ -55,6 +82,7 @@ const CartButton: React.FC<CartButtonProps> = (props) => {
 };
 
 export default CartButton;
+
 
 
 

@@ -1,21 +1,25 @@
-"use client"
 import Navbar from "../components/Navbar";
 import MenuList from "../components/MenuList";
-import { QueryClientProvider, QueryClient } from "react-query";
-import { Provider } from "react-redux";
-import store from "../redux/store";
+import axios from "axios";
 
-export default function Home() {
-  const queryClient = new QueryClient();
+
+async function fetch(){
+  const res = await axios.get(`https://run.mocky.io/v3/a67edc87-49c7-4822-9cb4-e2ef94cb3099`)
+  const response = res?.data?.[0];
+  return response;
+}
+
+
+export default async function Home() {
+    const details = await fetch()
+  const name = details.restaurant_name
+  const tableMenuList = details.table_menu_list
+
 
   return (
     <main>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-        <Navbar/>
-        <MenuList/>
-        </QueryClientProvider>
-      </Provider>
+        <Navbar name={name as string}/>
+        <MenuList list={tableMenuList as []} />
     </main>
   );
 }

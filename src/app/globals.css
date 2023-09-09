@@ -21,7 +21,10 @@
   .swiper-tab.active-tab{
     color: red;
     border-bottom: 2px solid red;
-    display: flex;
-    justify-content: center;
+  }
+
+  .swiper-tab{
+    display: flex !important;
+    justify-content: center !important;
   }
 
