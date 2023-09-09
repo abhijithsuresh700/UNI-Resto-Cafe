@@ -11,7 +11,7 @@ interface CategoryDishesProps {
 }
 
 const CategoryDishes: React.FC<CategoryDishesProps> = (props) => {
-console.log(props.category, "categorycheck")
+
   return (
     <div className="w-full">
       {props.dishes === undefined

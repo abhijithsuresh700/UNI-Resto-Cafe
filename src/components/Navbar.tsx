@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
@@ -8,11 +8,11 @@ interface NavbarProps {
   name: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({name}) => {
-    const count = useAppSelector((state) => state.cart.items)
-    const totalItemCount = count.reduce((total, item) => total + item.count, 0);
+const Navbar: React.FC<NavbarProps> = ({ name }) => {
+  const count = useAppSelector((state) => state.cart.items);
+  const totalItemCount = count.reduce((total, item) => total + item.count, 0);
 
-    const categoryCount = count.length;
+  const categoryCount = count.length;
 
   return (
     <div
@@ -20,9 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({name}) => {
       style={{ width: "100%" }}
     >
       <div>
-        <h1 className="my-3 font-bold mx-3 text-zinc-600 ml-20">
-          {name}
-        </h1>
+        <h1 className="my-3 font-bold mx-3 text-zinc-600 ml-20">{name}</h1>
       </div>
       <div className="flex my-3 mr-14">
         <h3 className="text-zinc-600 ">My Orders</h3>
